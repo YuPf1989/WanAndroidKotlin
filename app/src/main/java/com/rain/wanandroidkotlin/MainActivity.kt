@@ -1,19 +1,69 @@
 package com.rain.wanandroidkotlin
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.rain.wanandroidkotlin.base.BaseActivity
+import com.rain.wanandroidkotlin.ui.fragment.DemoFragment
+import com.rain.wanandroidkotlin.ui.fragment.HomeFragment
+import com.rain.wanandroidkotlin.ui.fragment.SystemFragment
+import com.rain.wanandroidkotlin.ui.fragment.WxFragment
+import com.rain.wanandroidkotlin.util.BottomNavigationViewHelper
+import com.rain.wanandroidkotlin.util.ToastUtil
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var fragmentList:ArrayList<Fragment>? = null
+    var lastSelect = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    private val naviListener = BottomNavigationView.OnNavigationItemSelectedListener {
+        when (it.itemId) {
+            R.id.navigation_home -> {
+                selectFragment(0)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_system -> {
+                selectFragment(1)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_demo -> {
+                selectFragment(2)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_wx -> {
+                selectFragment(3)
+                return@OnNavigationItemSelectedListener true
+            }
+            else -> return@OnNavigationItemSelectedListener false
+
+        }
+    }
+
+    private fun selectFragment(current: Int) {
+        val transaction = supportFragmentManager.beginTransaction()
+        val lastFragment = fragmentList!!.get(lastSelect)
+        val currentFragment = fragmentList!!.get(current)
+        lastSelect = current
+        transaction.hide(lastFragment)
+        if (!currentFragment.isAdded) {
+            // todo 与原作者不太一样
+            transaction.add(R.id.content_main,currentFragment)
+        }
+        transaction.show(currentFragment).commitAllowingStateLoss()
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -27,6 +77,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        BottomNavigationViewHelper.disableShiftMode(bottom_navigation)
+        bottom_navigation.setOnNavigationItemSelectedListener(naviListener)
+
+        initData()
+
+    }
+
+    private fun initData() {
+        initFragment()
+        selectFragment(0)
+    }
+
+    private fun initFragment() {
+        fragmentList = ArrayList()
+        fragmentList!!.add( HomeFragment.getInstance())
+        fragmentList!!.add( SystemFragment.getInstance())
+        fragmentList!!.add( DemoFragment.getInstance())
+        fragmentList!!.add( WxFragment.getInstance())
+
     }
 
     override fun onBackPressed() {
@@ -38,17 +108,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_hot -> {
+                ToastUtil.showToast("action_hot")
+                return true
+            }
+            R.id.action_search -> {
+                ToastUtil.showToast("action_search")
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

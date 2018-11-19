@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -13,6 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 添加该代码使vector的fillcolor属性可用
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -32,7 +37,29 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
+    // retrofit/gson/rxjava
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava
 
+    // rxandroid
+    implementation deps.rx_android
 
+    implementation deps.okhttp_logging_interceptor
+
+    // dbflow数据库
+    implementation deps.dbflow.runtime
+    implementation deps.dbflow.core
+    kapt deps.dbflow.compiler
+
+    // glide
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
+
+    // event bus
+    implementation deps.eventbus
+
+    // ui
+    implementation deps.smartRefreshLayout
 
 }
