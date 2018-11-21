@@ -46,6 +46,7 @@
         app:elevation="@dimen/dp_16"
         app:itemIconTint="@drawable/bottom_button_ble_press"
         app:itemTextColor="@drawable/bottom_button_ble_press"
+        android:background="@color/white"
         app:layout_behavior="@string/bottom_bervaior"
         app:menu="@menu/navigation" />
 

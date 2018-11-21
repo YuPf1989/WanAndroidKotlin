@@ -24,11 +24,11 @@ abstract class BaseActivity :AppCompatActivity() {
 
     abstract fun getLayoutId(): Int
 
-    protected fun initToolbar(toobar:Toolbar,title:String) {
+    protected fun initToolbar(toobar:Toolbar,title:String,homeAsUpEnabled:Boolean) {
         toobar.title = title
         setSupportActionBar(toobar)
         // 设置toolbar是否有返回按钮
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

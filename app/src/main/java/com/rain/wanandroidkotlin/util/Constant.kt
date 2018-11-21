@@ -6,8 +6,20 @@ package com.rain.wanandroidkotlin.util
  * Description:
  * 存储一些常量值
  */
-class Constant {
-    companion object {
-        val BASE_URL = "http://www.wanandroid.com/";
-    }
+object Constant {
+    val BASE_URL = "http://www.wanandroid.com/"
+    /**
+     * 首页 banner key
+     */
+    val HOME_DETAIL_TITLE = "banner_title"
+    val HOME_DETAIL_PATH = "banner_path"
+    val HOME_DETAIL_ID = "banner_id"
+    val HOME_DETAIL_IS_COLLECT = "banner_iscollect"
+
+    /**
+     * 用户相关 sp key
+     */
+    val USERNAME = "username"
+    val PASSWORD = "password"
+    val ISLOGIN = "is_login"
 }

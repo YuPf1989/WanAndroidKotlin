@@ -10,6 +10,10 @@ import com.rain.wanandroidkotlin.base.LazyLoadFragment
  * Description:
  */
 class DemoFragment : LazyLoadFragment() {
+    override fun reload() {
+        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
         fun getInstance() = DemoFragment()
     }

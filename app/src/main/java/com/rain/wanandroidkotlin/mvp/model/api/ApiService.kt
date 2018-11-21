@@ -15,7 +15,7 @@ interface ApiService {
      * 主页
      */
     @GET("article/list/{page}/json")
-    fun getArticleList(@Path("page") num: Int): Observable<BaseResp<HomePageArticleBean>>
+    fun getArticleList(@Path("page") num: Int): Observable<HomePageArticleBean>
 
     /**
      * 登录
@@ -35,7 +35,7 @@ interface ApiService {
      * banner
      */
     @GET("banner/json")
-    fun getBannerList(): Observable<BaseResp<List<BenarBean>>>
+    fun getBannerList(): Observable<List<BenarBean>>
 
     /**
      * 收藏文章

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-    var fragmentList:ArrayList<Fragment>? = null
+    var fragmentList: ArrayList<Fragment>? = null
     var lastSelect = 0
 
     private val naviListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -53,8 +53,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         lastSelect = current
         transaction.hide(lastFragment)
         if (!currentFragment.isAdded) {
-            // todo 与原作者不太一样
-            transaction.add(R.id.content_main,currentFragment)
+            transaction.add(R.id.content_main, currentFragment)
         }
         transaction.show(currentFragment).commitAllowingStateLoss()
     }
@@ -67,8 +66,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            scrollToTop()
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -85,6 +83,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
+    private fun scrollToTop() {
+        when (lastSelect) {
+            0 -> (fragmentList?.get(0) as HomeFragment).scrollToTop()
+        }
+    }
+
     private fun initData() {
         initFragment()
         selectFragment(0)
@@ -92,11 +96,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun initFragment() {
         fragmentList = ArrayList()
-        fragmentList!!.add( HomeFragment.getInstance())
-        fragmentList!!.add( SystemFragment.getInstance())
-        fragmentList!!.add( DemoFragment.getInstance())
-        fragmentList!!.add( WxFragment.getInstance())
-
+        fragmentList?.add(HomeFragment.getInstance())
+        fragmentList?.add(SystemFragment.getInstance())
+        fragmentList?.add(DemoFragment.getInstance())
+        fragmentList?.add(WxFragment.getInstance())
     }
 
     override fun onBackPressed() {

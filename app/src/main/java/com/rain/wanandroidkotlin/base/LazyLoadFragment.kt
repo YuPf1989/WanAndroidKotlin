@@ -1,6 +1,7 @@
 package com.rain.wanandroidkotlin.base
 
 import android.os.Bundle
+import android.util.Log
 
 /**
  * Author:rain
@@ -8,8 +9,10 @@ import android.os.Bundle
  * Description:
  * 懒加载的fragment
  * 只有当前fragment初始化过，并且对用户可见,没有加载过数据的时候才进行数据加载
+ * 只有使用viewpager setUserVisibleHint才会调用
  */
 abstract class LazyLoadFragment : BaseFragment() {
+    val TAG = "LazyLoadFragment"
     // 界面是否初始化过
     private var isViewInitiated = false
     // 界面对用户是否可见
@@ -21,8 +24,10 @@ abstract class LazyLoadFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         isViewInitiated = true
+        preFetchData()
     }
 
+    // 只有使用viewpager setUserVisibleHint才会调用
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         this.isVisibleToUser = isVisibleToUser
@@ -37,7 +42,7 @@ abstract class LazyLoadFragment : BaseFragment() {
     protected fun isForceUpdate(forceUpdate: Boolean) = forceUpdate
 
     private fun preFetchData() {
-        if (isViewInitiated && isVisibleToUser && !isDataInitiated || isForceUpdate(false)) {
+        if (isViewInitiated && isVisibleToUser && (!isDataInitiated || isForceUpdate(false))) {
             fetchData()
             isDataInitiated = true
         }

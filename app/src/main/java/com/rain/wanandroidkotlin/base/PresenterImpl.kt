@@ -1,15 +1,17 @@
 package com.rain.wanandroidkotlin.base
 
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Author:rain
  * Date:2018/11/16 10:35
  * Description:
  */
-class PresenterImpl<V : IView> : IPresenter<V> {
+open class PresenterImpl<V : IView> : IPresenter<V> {
     protected var view: IView? = null
-    private var disposable: CompositeDisposable? = null
+    protected var compositeDisposable: CompositeDisposable? = null
+
     override fun checkViewAttached(): Boolean {
         if (view != null) {
             return true
@@ -18,16 +20,19 @@ class PresenterImpl<V : IView> : IPresenter<V> {
         }
     }
 
+    fun addSubscription(disposable: Disposable) {
+        compositeDisposable?.add(disposable)
+    }
+
     override fun attachView(view: V) {
         this.view = view
-        disposable = CompositeDisposable()
+        compositeDisposable = CompositeDisposable()
     }
 
     override fun detachView() {
         view = null
-        // TODO(disposable 不知道是否有可能为null)
-        if (!disposable!!.isDisposed) {
-            disposable!!.clear()
+        if (!compositeDisposable!!.isDisposed) {
+            compositeDisposable!!.clear()
         }
     }
 
