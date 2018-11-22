@@ -40,7 +40,6 @@ class HomeAdapter(layoutResId: Int, data: List<HomePageArticleBean.DatasBean>?) 
             helper.setTextColor(R.id.tv_tag, mContext.resources.getColor(R.color.red))
             helper.setBackgroundRes(R.id.tv_tag, R.drawable.drawable_shape_red)
         }
-        helper.addOnClickListener(R.id.tv_type)
         helper.addOnClickListener(R.id.image_collect)
         helper.setImageResource(R.id.image_collect, if (item.isCollect()) R.drawable.icon_collect else R.drawable.icon_no_collect)
     }

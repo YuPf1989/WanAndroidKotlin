@@ -6,6 +6,6 @@ package com.rain.wanandroidkotlin.mvp.model
  * Description:
  * 基本响应数据类
  */
-data class BaseResp<T>(val data: T, val code: Int, val msg: String) {
-    fun isOK() = code == 0
+data class BaseResp<T>(val data: T, val errorCode: Int, val errorMsg: String) {
+    fun isOK() = errorCode == 0
 }

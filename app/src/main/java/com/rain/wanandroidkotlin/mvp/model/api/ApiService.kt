@@ -22,7 +22,7 @@ interface ApiService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    fun login(@Field("username") username: String, @Field("password") password: String): Observable<BaseResp<UserInfo>>
+    fun login(@Field("username") username: String, @Field("password") password: String): Observable<UserInfo>
 
     /**
      * 注册

@@ -22,4 +22,10 @@ object Constant {
     val USERNAME = "username"
     val PASSWORD = "password"
     val ISLOGIN = "is_login"
+
+    /**
+     * int 网络返回值
+     */
+    val REQUEST_ERROR = -1
+    val REQUEST_SUCCESS = 0
 }

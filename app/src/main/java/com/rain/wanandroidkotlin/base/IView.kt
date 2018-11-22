@@ -2,32 +2,9 @@ package com.rain.wanandroidkotlin.base
 
 /**
  * Author:rain
- * Date:2018/11/16 10:22
+ * Date:2018/11/22 16:06
  * Description:
+ * 最顶级的view接口
  */
 interface IView {
-    /**
-     * 显示正常布局
-     */
-    fun showNormal()
-
-    /**
-     * 加载中
-     */
-    fun showLoading()
-
-    /**
-     * 网络错误
-     */
-    fun showError(code:Int,msg:String)
-
-    /**
-     * 没有数据
-     */
-    fun showEmpty()
-
-    /**
-     * 重新加载
-     */
-    fun reload()
 }

@@ -25,6 +25,8 @@ import kotlinx.android.synthetic.main.toolbar.*
 class HomeDetailActivity : BaseActivity() {
     var homeTitle: String? = null
     var homeArtistPath: String? = null
+    var detailId: Int? = null
+    var isCollect: Boolean? = null
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView(savedInstanceState: Bundle?) {
         getIntentData()
@@ -54,9 +56,11 @@ class HomeDetailActivity : BaseActivity() {
     private fun getIntentData() {
         val bundle = intent.extras
         bundle?.let {
-            // 从banner传过来的数据
+            // 从banner/首页条目传过来的数据
             homeTitle = bundle.getString(Constant.HOME_DETAIL_TITLE)
             homeArtistPath = bundle.getString(Constant.HOME_DETAIL_PATH)
+            detailId = bundle.getInt(Constant.HOME_DETAIL_ID, Constant.REQUEST_ERROR)
+            isCollect = bundle.getBoolean(Constant.HOME_DETAIL_IS_COLLECT)
         }
     }
 
@@ -80,7 +84,7 @@ class HomeDetailActivity : BaseActivity() {
             R.id.menu_article_collect -> {
                 val isLogin = SharedPreferenceUtil.get(this, Constant.ISLOGIN, false) as Boolean
                 if (isLogin) {
-                    // 请求网络，如果收藏，取消，否则收藏
+                    // 请求网络，如果收藏，取消，否则收藏 todo
                 } else {
                     ToastUtil.showToast(getString(R.string.please_login))
                     JumpUtil.overlay(this, LoginActivity::class.java)
@@ -102,7 +106,6 @@ class HomeDetailActivity : BaseActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         }
         return super.onMenuOpened(featureId, menu)

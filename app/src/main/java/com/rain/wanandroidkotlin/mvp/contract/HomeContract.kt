@@ -1,7 +1,7 @@
 package com.rain.wanandroidkotlin.mvp.contract
 
 import com.rain.wanandroidkotlin.base.IPresenter
-import com.rain.wanandroidkotlin.base.IView
+import com.rain.wanandroidkotlin.base.ILayoutView
 import com.rain.wanandroidkotlin.base.IloadMoreView
 import com.rain.wanandroidkotlin.mvp.model.entity.BenarBean
 import com.rain.wanandroidkotlin.mvp.model.entity.HomePageArticleBean
@@ -13,7 +13,7 @@ import com.rain.wanandroidkotlin.mvp.model.entity.HomePageArticleBean
  *
  */
 interface HomeContract {
-     interface View : IView,IloadMoreView {
+     interface LayoutView : ILayoutView,IloadMoreView {
         fun getBannerOk(bannerBean:List<BenarBean> )
 
         fun getBannerErr(info:String)
@@ -24,7 +24,7 @@ interface HomeContract {
 
     }
 
-    interface Presenter:IPresenter<HomeContract.View>{
+    interface Presenter:IPresenter<HomeContract.LayoutView>{
         fun autoRefresh()
 
         fun getBanner()

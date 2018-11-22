@@ -8,16 +8,22 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.rain.wanandroidkotlin.base.BaseActivity
+import com.rain.wanandroidkotlin.eventbus.UpdateUserInfo
+import com.rain.wanandroidkotlin.ui.activity.LoginActivity
 import com.rain.wanandroidkotlin.ui.fragment.DemoFragment
 import com.rain.wanandroidkotlin.ui.fragment.HomeFragment
 import com.rain.wanandroidkotlin.ui.fragment.SystemFragment
 import com.rain.wanandroidkotlin.ui.fragment.WxFragment
-import com.rain.wanandroidkotlin.util.BottomNavigationViewHelper
-import com.rain.wanandroidkotlin.util.ToastUtil
+import com.rain.wanandroidkotlin.util.*
+import com.rain.wanandroidkotlin.util.glide.GlideApp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
+import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     var fragmentList: ArrayList<Fragment>? = null
@@ -63,6 +69,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+        EventBus.getDefault().register(this)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -81,6 +88,33 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         initData()
 
+        setUserInfo()
+
+    }
+
+    // 用户信息发生变化时调用
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun updateUserInfo(event:UpdateUserInfo) {
+        setUserInfo()
+    }
+
+    private fun setUserInfo() {
+        val isLogin = SharedPreferenceUtil.get(this, Constant.ISLOGIN, false) as Boolean
+        val headerView = nav_view.getHeaderView(0)
+        if (!isLogin) {
+            headerView.userName.text = "登录"
+            headerView.userName.setOnClickListener {
+                JumpUtil.overlay(this, LoginActivity::class.java)
+            }
+            headerView.userImage.setBackgroundResource(R.mipmap.ic_launcher_round)
+        } else {
+            headerView.userName.text = SharedPreferenceUtil.get(this, Constant.USERNAME, "") as String
+            // todo 设置用户头像
+            GlideApp.with(this)
+                    .load("")
+                    .circleCrop()
+                    .into(headerView.userImage)
+        }
     }
 
     private fun scrollToTop() {
@@ -132,27 +166,28 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_collect -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
+
+            R.id.nav_setting -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_about_us -> {
 
             }
-            R.id.nav_manage -> {
 
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
+            R.id.nav_loginout -> {
 
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

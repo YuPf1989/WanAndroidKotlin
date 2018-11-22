@@ -1,13 +1,14 @@
 package com.rain.wanandroidkotlin.ui.fragment
 
+import android.annotation.TargetApi
+import android.app.ActivityOptions
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
 import com.rain.wanandroidkotlin.base.BaseFragment
-import com.rain.wanandroidkotlin.base.LazyLoadFragment
 import com.rain.wanandroidkotlin.mvp.contract.HomeContract
 import com.rain.wanandroidkotlin.mvp.model.entity.BenarBean
 import com.rain.wanandroidkotlin.mvp.model.entity.HomePageArticleBean
@@ -30,7 +31,7 @@ import java.util.*
  * Date:2018/11/19 11:18
  * Description:
  */
-class HomeFragment : BaseFragment(), HomeContract.View {
+class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     var p: HomePresenter? = null
     var adapter: HomeAdapter? = null
     var bannerView: LinearLayout? = null
@@ -82,14 +83,24 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         bannerView = layoutInflater.inflate(R.layout.view_banner, null) as LinearLayout
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initRecycler() {
         recycyler.layoutManager = LinearLayoutManager(mContext)
         adapter = HomeAdapter(R.layout.item_homepage, null)
         adapter!!.setOnItemClickListener { adapter, view, position ->
-
+            val bean = adapter.data[position] as HomePageArticleBean.DatasBean
+            val bundle = Bundle()
+            bundle.putInt(Constant.HOME_DETAIL_ID, bean.getId())
+            bundle.putString(Constant.HOME_DETAIL_PATH, bean.getLink())
+            bundle.putString(Constant.HOME_DETAIL_TITLE, bean.getTitle())
+            bundle.putBoolean(Constant.HOME_DETAIL_IS_COLLECT, bean.isCollect())
+            // webview 和跳转的界面布局 transitionName 一定要相同
+            val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, getString(R.string.web_view))
+            JumpUtil.overlay(activity!!,HomeDetailActivity::class.java,bundle,options.toBundle())
         }
         adapter!!.setOnItemChildClickListener { adapter, view, position ->
-
+            // 收藏  todo
+            ToastUtil.showToast("收藏点击了")
         }
         adapter!!.addHeaderView(bannerView)
         recycyler.adapter = adapter
@@ -124,12 +135,14 @@ class HomeFragment : BaseFragment(), HomeContract.View {
                 val bundle = Bundle()
                 bundle.putString(Constant.HOME_DETAIL_TITLE, titleList!!.get(position))
                 bundle.putString(Constant.HOME_DETAIL_PATH, linkList!!.get(position))
+                // todo 从banner进去是没有id的，不知道收藏是怎么搬到的
                 JumpUtil.overlay(context!!, HomeDetailActivity::class.java, bundle)
             }
         }
     }
 
     override fun getBannerErr(info: String) {
+        ToastUtil.showToast(info)
     }
 
     override fun getHomePageListOk(homeList: HomePageArticleBean) {

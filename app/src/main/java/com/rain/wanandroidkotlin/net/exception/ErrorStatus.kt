@@ -4,6 +4,7 @@ package com.rain.wanandroidkotlin.net.exception
  * Author:rain
  * Date:2018/6/5 16:42
  * Description:
+ * 根据服务端定义自行修改
  */
 object ErrorStatus {
     /**

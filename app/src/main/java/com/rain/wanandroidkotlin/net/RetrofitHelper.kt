@@ -1,12 +1,12 @@
 package com.rain.wanandroidkotlin.net
 
+import com.rain.wanandroidkotlin.net.cookie.CookiesManager
 import com.rain.wanandroidkotlin.net.my_gsonconvert.MyGsonConverterFactory
 import com.rain.wanandroidkotlin.util.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Author:rain
@@ -22,7 +22,8 @@ object RetrofitHelper {
     }
     init {
         val client = OkHttpClient.Builder()
-                .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+                .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .cookieJar(CookiesManager())
                 .build()
 
         retrofit = Retrofit.Builder()

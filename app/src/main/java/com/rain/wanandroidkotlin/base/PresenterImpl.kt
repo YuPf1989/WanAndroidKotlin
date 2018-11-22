@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable
  * Description:
  */
 open class PresenterImpl<V : IView> : IPresenter<V> {
-    protected var view: IView? = null
+    protected open var view: IView? = null
     protected var compositeDisposable: CompositeDisposable? = null
 
     override fun checkViewAttached(): Boolean {

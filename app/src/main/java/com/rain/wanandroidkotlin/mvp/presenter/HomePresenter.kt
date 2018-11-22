@@ -1,6 +1,5 @@
 package com.rain.wanandroidkotlin.mvp.presenter
 
-import android.util.Log
 import com.rain.wanandroidkotlin.base.PresenterImpl
 import com.rain.wanandroidkotlin.mvp.contract.HomeContract
 import com.rain.wanandroidkotlin.mvp.model.api.ApiService
@@ -14,10 +13,10 @@ import io.reactivex.schedulers.Schedulers
  * Date:2018/11/19 16:00
  * Description:
  */
-class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.View>() {
+class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutView>() {
     var currentPage: Int = 0
 
-    override fun attachView(view: HomeContract.View) {
+    override fun attachView(view: HomeContract.LayoutView) {
         this.view = view
         super.attachView(view)
     }
@@ -34,9 +33,9 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.View>()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    (view as HomeContract.View).getBannerOk(it)
+                    (view as HomeContract.LayoutView).getBannerOk(it)
                 }, {
-                    (view as HomeContract.View).getBannerErr(ExceptionHandle.handleException(it))
+                    (view as HomeContract.LayoutView).getBannerErr(ExceptionHandle.handleException(it))
                 })
         addSubscription(disposable)
     }
@@ -47,9 +46,9 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.View>()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    (view as HomeContract.View).getHomePageListOk(it)
+                    (view as HomeContract.LayoutView).getHomePageListOk(it)
                 }, {
-                    (view as HomeContract.View).getHomePageListErr(ExceptionHandle.handleException(it))
+                    (view as HomeContract.LayoutView).getHomePageListErr(ExceptionHandle.handleException(it))
                 })
         addSubscription(disposable)
     }
@@ -61,14 +60,14 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.View>()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (currentPage <= it.pageCount) {
-                        (view as HomeContract.View).setLoadMoreData(it)
-                        (view as HomeContract.View).loadComplete()
+                        (view as HomeContract.LayoutView).setLoadMoreData(it)
+                        (view as HomeContract.LayoutView).loadComplete()
                     }
                     if (currentPage > it.pageCount) {
-                        (view as HomeContract.View).loadEnd()
+                        (view as HomeContract.LayoutView).loadEnd()
                     }
                 }, {
-                    (view as HomeContract.View).loadFail()
+                    (view as HomeContract.LayoutView).loadFail()
                 })
         addSubscription(disposable)
     }

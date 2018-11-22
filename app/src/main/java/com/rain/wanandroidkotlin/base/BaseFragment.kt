@@ -13,7 +13,7 @@ import com.hankkin.pagelayout.PageLayout
  * Date:2018/11/16 10:58
  * Description:
  */
-abstract class BaseFragment : Fragment(), IView {
+abstract class BaseFragment : Fragment(), ILayoutView {
     override fun showNormal() {
         mPageLayout?.hide()
     }

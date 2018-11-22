@@ -43,7 +43,7 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
         //这样，我们就成功的将该异常交给onError()去处理了。
         if (!re.isOK()) {
             value.close();
-            throw new ApiException(re.getCode(), re.getMsg());
+            throw new ApiException(re.getErrorCode(), re.getErrorMsg());
         }
 
         MediaType mediaType = value.contentType();
