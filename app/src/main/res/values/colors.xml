@@ -62,4 +62,6 @@
     <color name="theme_bgs">#EEF8FC</color>
     <color name="while_most_color">#e4e4e4</color>
 
+    <color name="test_color">#efeff4</color>
+
 </resources>

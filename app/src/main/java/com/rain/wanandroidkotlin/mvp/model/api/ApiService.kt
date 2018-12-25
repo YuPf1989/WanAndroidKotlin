@@ -55,7 +55,7 @@ interface ApiService {
      * 体系数据
      */
     @GET("tree/json")
-    fun getSystemList(): Observable<BaseResp<List<SystemBean>>>
+    fun getSystemList(): Observable<List<SystemBean>>
 
     /**
      * 单个知识体系列表

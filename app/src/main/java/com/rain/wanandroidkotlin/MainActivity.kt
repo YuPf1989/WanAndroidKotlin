@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.rain.wanandroidkotlin.base.BaseActivity
 import com.rain.wanandroidkotlin.eventbus.UpdateUserInfo
+import com.rain.wanandroidkotlin.net.cookie.CookiesManager
 import com.rain.wanandroidkotlin.ui.activity.LoginActivity
 import com.rain.wanandroidkotlin.ui.fragment.DemoFragment
 import com.rain.wanandroidkotlin.ui.fragment.HomeFragment
@@ -120,6 +121,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun scrollToTop() {
         when (lastSelect) {
             0 -> (fragmentList?.get(0) as HomeFragment).scrollToTop()
+            1 -> (fragmentList?.get(1) as SystemFragment).scrollToTop()
+
         }
     }
 
@@ -178,7 +181,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             R.id.nav_loginout -> {
-
+                SharedPreferenceUtil.clear(this)
+                CookiesManager.clearAllCookies()
+                ToastUtil.showToast(getString(R.string.logout_ok))
+                setUserInfo()
             }
         }
 
