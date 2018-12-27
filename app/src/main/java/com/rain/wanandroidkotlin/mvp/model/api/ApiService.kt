@@ -67,13 +67,13 @@ interface ApiService {
      * 获取项目 列表
      */
     @GET("project/tree/json")
-    fun getDemoTitleList(): Observable<BaseResp<List<DemoTitleBean>>>
+    fun getDemoTitleList(): Observable<List<DemoTitleBean>>
 
     /**
      * 获取 项目详细信息列表数据
      */
     @GET("project/list/{page}/json")
-    fun getDemoDetailList(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResp<DemoDetailListBean>>
+    fun getDemoDetailList(@Path("page") page: Int, @Query("cid") id: Int): Observable<DemoDetailListBean>
 
     /**
      * 获取 我的收藏列表
@@ -110,11 +110,11 @@ interface ApiService {
      * @return
      */
     @GET("/wxarticle/chapters/json")
-    fun getWXList(): Observable<BaseResp<List<WxListBean>>>
+    fun getWXList(): Observable<List<WxListBean>>
 
     /**
      * 获取 微信公众号详细信息列表数据
      */
     @GET("wxarticle/list/{id}/{page}/json")
-    fun getWXDetailList(@Path("page") page: Int, @Path("id") id: Int): Observable<BaseResp<WxPublicListBean>>
+    fun getWXDetailList(@Path("page") page: Int, @Path("id") id: Int): Observable<WxPublicListBean>
 }

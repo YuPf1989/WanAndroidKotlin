@@ -44,18 +44,24 @@ abstract class BaseFragment : Fragment(), ILayoutView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mContext = activity
-        mPageLayout = getView()?.let {
-            PageLayout.Builder(mContext!!)
-                    .initPage(it)
-                    .setOnRetryListener(object : PageLayout.OnRetryClickListener {
-                        override fun onRetry() {
-                            reload()
-                        }
-                    })
-                    .create()
-        }
+        mPageLayout = PageLayout.Builder(mContext!!)
+                .initPage(setTargetView())
+                .setOnRetryListener(object : PageLayout.OnRetryClickListener {
+                    override fun onRetry() {
+                        reload()
+                    }
+                })
+                .create()
         initView(savedInstanceState)
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    /**
+     * 重写此方法将mPageLayout绑定到不同的布局上
+     * 默认为当前的根view
+     */
+    open fun setTargetView():View{
+        return view!!
     }
 
     override fun onDestroy() {

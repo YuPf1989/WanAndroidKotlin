@@ -40,11 +40,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 selectFragment(1)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_demo -> {
+            R.id.navigation_wx -> {
                 selectFragment(2)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_wx -> {
+            R.id.navigation_demo -> {
                 selectFragment(3)
                 return@OnNavigationItemSelectedListener true
             }
@@ -122,7 +122,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when (lastSelect) {
             0 -> (fragmentList?.get(0) as HomeFragment).scrollToTop()
             1 -> (fragmentList?.get(1) as SystemFragment).scrollToTop()
-
+            2 -> (fragmentList?.get(2) as WxFragment).scrollChildToTop()
+            3 -> (fragmentList?.get(3) as DemoFragment).scrollChildToTop()
         }
     }
 
@@ -135,8 +136,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fragmentList = ArrayList()
         fragmentList?.add(HomeFragment.getInstance())
         fragmentList?.add(SystemFragment.getInstance())
-        fragmentList?.add(DemoFragment.getInstance())
         fragmentList?.add(WxFragment.getInstance())
+        fragmentList?.add(DemoFragment.getInstance())
     }
 
     override fun onBackPressed() {

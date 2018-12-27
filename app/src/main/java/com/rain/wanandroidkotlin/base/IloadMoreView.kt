@@ -5,7 +5,7 @@ package com.rain.wanandroidkotlin.base
  * Date:2018/11/16 10:31
  * Description:
  */
-interface IloadMoreView {
+interface IloadMoreView :IView{
     /**
      * 全部数据加载完毕
      */

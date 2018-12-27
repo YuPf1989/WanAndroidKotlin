@@ -28,4 +28,7 @@ object Constant {
      */
     val REQUEST_ERROR = -1
     val REQUEST_SUCCESS = 0
+
+    val WX_FRAGMENT_ID = "wx_fragment_id";
+    val DEMO_FRAGMENT_ID = "demo_fragment_id";
 }
