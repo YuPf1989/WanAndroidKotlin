@@ -1,7 +1,10 @@
 package com.rain.wanandroidkotlin.ui.fragment
 
+import android.app.ActivityOptions
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
 import com.rain.wanandroidkotlin.base.LazyLoadFragment
@@ -10,9 +13,11 @@ import com.rain.wanandroidkotlin.mvp.model.entity.DemoDetailListBean
 import com.rain.wanandroidkotlin.mvp.model.entity.WxPublicListBean
 import com.rain.wanandroidkotlin.mvp.presenter.DemoDetailPresenter
 import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
+import com.rain.wanandroidkotlin.ui.activity.HomeDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.DemoDetailAdapter
 import com.rain.wanandroidkotlin.ui.adapter.WxDetailAdapter
 import com.rain.wanandroidkotlin.util.Constant
+import com.rain.wanandroidkotlin.util.JumpUtil
 import com.rain.wanandroidkotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_system_detail.*
 
@@ -23,8 +28,8 @@ import kotlinx.android.synthetic.main.fragment_system_detail.*
  */
 class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
     var demoId = -1
-    var p: DemoDetailPresenter? = null
-    var adapter: DemoDetailAdapter? = null
+    lateinit var p: DemoDetailPresenter
+    lateinit var adapter: DemoDetailAdapter
 
     companion object {
         fun getInstance(id: Int): DemoDetailFragment {
@@ -41,7 +46,7 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
     }
 
     override fun onDestroy() {
-        p!!.detachView()
+        p.detachView()
         super.onDestroy()
     }
 
@@ -53,24 +58,36 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
         return R.layout.fragment_system_detail
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initView(savedInstanceState: Bundle?) {
         demoId = arguments!![Constant.DEMO_FRAGMENT_ID] as Int
         p = DemoDetailPresenter()
-        p!!.attachView(this)
+        p.attachView(this)
 
         refresh_layout.setOnRefreshListener {
-            p!!.autoRefresh()
+            p.autoRefresh()
             it.finishRefresh(1000)
         }
         refresh_layout.setOnLoadMoreListener {
-            p!!.loadMore()
+            p.loadMore()
             it.finishRefresh(1000)
         }
 
         adapter = DemoDetailAdapter(R.layout.item_demo_list, null)
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val bean = adapter.data[position] as DemoDetailListBean.DatasBean
+            Bundle().apply {
+                putInt(Constant.HOME_DETAIL_ID, bean.getId())
+                putString(Constant.HOME_DETAIL_PATH, bean.getLink())
+                putString(Constant.HOME_DETAIL_TITLE, bean.getTitle())
+                putBoolean(Constant.HOME_DETAIL_IS_COLLECT, bean.isCollect())
+            }.let {
+                val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, getString(R.string.web_view))
+                JumpUtil.overlay(activity!!, HomeDetailActivity::class.java,it,options.toBundle())
+            }
+        }
         rv.layoutManager = LinearLayoutManager(mContext)
         rv.adapter = adapter
-
     }
 
     override fun fetchData() {
@@ -79,7 +96,7 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
 
     override fun showLoading() {
         super.showLoading()
-        p!!.getDemoListResult(demoId, 1)
+        p.getDemoListResult(demoId, 1)
     }
 
     override fun reload() {
@@ -88,7 +105,7 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
 
     override fun getDemoListOk(bean: DemoDetailListBean) {
         showNormal()
-        adapter!!.setNewData(bean.datas)
+        adapter.setNewData(bean.datas)
     }
 
     override fun getDemoListErr(err: String) {
@@ -97,6 +114,7 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
     }
 
     override fun loadEnd() {
+        ToastUtil.showToast("没有更多数据了！")
         refresh_layout.finishLoadMoreWithNoMoreData()
     }
 
@@ -109,6 +127,6 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
     }
 
     override fun setLoadMoreData(any: Any) {
-        adapter!!.addData((any as DemoDetailListBean).datas)
+        adapter.addData((any as DemoDetailListBean).datas)
     }
 }

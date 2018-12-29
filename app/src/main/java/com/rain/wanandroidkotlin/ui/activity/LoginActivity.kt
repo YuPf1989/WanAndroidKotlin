@@ -23,26 +23,26 @@ import org.greenrobot.eventbus.EventBus
 class LoginActivity : BaseActivity(), LoginContract.View {
     private var pwd: String? = null
     private var userName: String? = null
-    private var presenter: LoginPresenter? = null
-    private var pb: ProgressBar? = null
+    private lateinit var presenter: LoginPresenter
+    private lateinit var pb: ProgressBar
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.detachView()
+        presenter.detachView()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         presenter = LoginPresenter(this)
-        presenter?.attachView(this)
+        presenter.attachView(this)
         pb = DialogUtil.createCenterProgressBar(this)
-        pb!!.visibility = View.GONE
+        pb.visibility = View.GONE
         initToolbar(toolbar, getString(R.string.login), true)
         tv_register.setOnClickListener {
             JumpUtil.overlay(this, RegisterActivity::class.java)
         }
         btn_login.setOnClickListener {
             if (check()) {
-                presenter?.login(userName!!, pwd!!)
+                presenter.login(userName!!, pwd!!)
             }
         }
     }
@@ -63,7 +63,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun loginOk(info: UserInfo) {
-        pb!!.visibility = View.GONE
+        pb.visibility = View.GONE
         ToastUtil.showToast(getString(R.string.login_ok))
         SharedPreferenceUtil.put(this, Constant.USERNAME, info.getUsername())
         SharedPreferenceUtil.put(this, Constant.PASSWORD, info.getPassword())
@@ -73,11 +73,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun loginErr(code: Int, msg: String) {
-        pb!!.visibility = View.GONE
+        pb.visibility = View.GONE
     }
 
     override fun showLoading() {
-        pb!!.visibility = View.VISIBLE
+        pb.visibility = View.VISIBLE
     }
 
 

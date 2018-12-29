@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_wx.*
  * Description:
  */
 class DemoFragment : BaseFragment(),DemoContract.View {
-    var p: DemoPresenter? = null
-    var titles: ArrayList<String>? = null
-    var fragments: ArrayList<DemoDetailFragment>? = null
-    var adapter: DemoFragmentAdapter? = null
+    lateinit var p: DemoPresenter
+    lateinit var titles: ArrayList<String>
+    lateinit var fragments: ArrayList<DemoDetailFragment>
+    lateinit var adapter: DemoFragmentAdapter
     override fun reload() {
         showLoading()
     }
@@ -35,39 +35,40 @@ class DemoFragment : BaseFragment(),DemoContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        p!!.detachView()
+        p.detachView()
     }
 
     override fun showLoading() {
         super.showLoading()
-        p!!.getDemoListData()
+        p.getDemoListData()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         p = DemoPresenter()
-        p!!.attachView(this)
+        p.attachView(this)
         titles = ArrayList()
         fragments = ArrayList()
         showLoading()
     }
 
     fun scrollChildToTop() {
-        val currentFragment = adapter!!.currentFragment
+        val currentFragment = adapter.currentFragment
         currentFragment!!.scrollToTop()
     }
 
     override fun getDemoResultOk(data: List<DemoTitleBean>) {
-        titles!!.clear()
-        fragments!!.clear()
+        titles.clear()
+        fragments.clear()
         if (data.size > 0) {
             for (bean in data) {
-                titles!!.add(bean.name)
-                fragments!!.add(DemoDetailFragment.getInstance(bean.id))
+                titles.add(bean.name)
+                fragments.add(DemoDetailFragment.getInstance(bean.id))
             }
-            titles!!.forEach {
+            titles.forEach {
                 tabLayout.addTab(tabLayout.newTab().setText(it))
             }
-            viewPager.adapter = DemoFragmentAdapter(childFragmentManager,titles!!,fragments!!)
+            adapter = DemoFragmentAdapter(childFragmentManager,titles,fragments)
+            viewPager.adapter = adapter
             viewPager.offscreenPageLimit = data.size
             tabLayout.setupWithViewPager(viewPager)
         }

@@ -61,7 +61,7 @@ interface ApiService {
      * 单个知识体系列表
      */
     @GET("article/list/{page}/json")
-    fun getSystemDetailList(@Path("page") page: Int, @Query("cid") id: Int): Observable<BaseResp<SystemDetailListBean>>
+    fun getSystemDetailList(@Path("page") page: Int, @Query("cid") id: Int): Observable<SystemDetailListBean>
 
     /**
      * 获取项目 列表

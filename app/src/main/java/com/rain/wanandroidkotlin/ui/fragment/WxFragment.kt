@@ -23,10 +23,10 @@ import kotlinx.android.synthetic.main.fragment_wx.*
  * Description:
  */
 class WxFragment : BaseFragment(), WxContract.View {
-    var p: WxPresenter? = null
-    var titles: ArrayList<String>? = null
-    var fragments: ArrayList<WxDetailFragment>? = null
-    var adapter: WxFragmentAdapter? = null
+    lateinit var p: WxPresenter
+    lateinit var titles: ArrayList<String>
+    lateinit var fragments: ArrayList<WxDetailFragment>
+    lateinit var adapter: WxFragmentAdapter
 
     override fun reload() {
         showLoading()
@@ -42,39 +42,40 @@ class WxFragment : BaseFragment(), WxContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        p!!.detachView()
+        p.detachView()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         p = WxPresenter()
-        p!!.attachView(this)
+        p.attachView(this)
         titles = ArrayList()
         fragments = ArrayList()
         showLoading()
     }
 
     fun scrollChildToTop() {
-        val currentFragment = adapter!!.currentFragment
+        val currentFragment = adapter.currentFragment
         currentFragment!!.scrollToTop()
     }
 
     override fun showLoading() {
         super.showLoading()
-        p!!.getWxListData()
+        p.getWxListData()
     }
 
     override fun getWxResultOk(data: List<WxListBean>) {
-        titles!!.clear()
-        fragments!!.clear()
+        titles.clear()
+        fragments.clear()
         if (data.size > 0) {
             for (bean in data) {
-                titles!!.add(bean.name)
-                fragments!!.add(WxDetailFragment.getInstance(bean.id))
+                titles.add(bean.name)
+                fragments.add(WxDetailFragment.getInstance(bean.id))
             }
-            titles!!.forEach {
+            titles.forEach {
                 tabLayout.addTab(tabLayout.newTab().setText(it))
             }
-            viewPager.adapter = WxFragmentAdapter(childFragmentManager,titles!!,fragments!!)
+            adapter = WxFragmentAdapter(childFragmentManager,titles,fragments)
+            viewPager.adapter = adapter
             viewPager.offscreenPageLimit = data.size
             tabLayout.setupWithViewPager(viewPager)
         }

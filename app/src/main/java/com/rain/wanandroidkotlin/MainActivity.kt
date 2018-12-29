@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationView
 import com.rain.wanandroidkotlin.base.BaseActivity
 import com.rain.wanandroidkotlin.eventbus.UpdateUserInfo
@@ -84,7 +85,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        BottomNavigationViewHelper.disableShiftMode(bottom_navigation)
+        // label 始终可见
+        bottom_navigation.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
         bottom_navigation.setOnNavigationItemSelectedListener(naviListener)
 
         initData()

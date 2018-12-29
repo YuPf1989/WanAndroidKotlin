@@ -3,6 +3,7 @@ package com.rain.wanandroidkotlin.ui.activity
 import android.os.Bundle
 import com.rain.wanandroidkotlin.R
 import com.rain.wanandroidkotlin.base.BaseActivity
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Author:rain
@@ -11,11 +12,12 @@ import com.rain.wanandroidkotlin.base.BaseActivity
  */
 class RegisterActivity:BaseActivity() {
     override fun initView(savedInstanceState: Bundle?) {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        initToolbar(toolbar,"注册",true)
+
+
     }
 
     override fun getLayoutId(): Int {
-        // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return R.layout.activity_login
     }
 }

@@ -32,12 +32,12 @@ import java.util.*
  * Description:
  */
 class HomeFragment : BaseFragment(), HomeContract.LayoutView {
-    var p: HomePresenter? = null
-    var adapter: HomeAdapter? = null
-    var bannerView: LinearLayout? = null
-    var linkList: ArrayList<String>? = null
-    var imageList: ArrayList<String>? = null
-    var titleList: ArrayList<String>? = null
+    lateinit var p: HomePresenter
+    lateinit var adapter: HomeAdapter
+    lateinit var bannerView: LinearLayout
+    lateinit var linkList: ArrayList<String>
+    lateinit var imageList: ArrayList<String>
+    lateinit var titleList: ArrayList<String>
 
     companion object {
         fun getInstance() = HomeFragment()
@@ -45,16 +45,16 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
 
     override fun showLoading() {
         super.showLoading()
-        p!!.autoRefresh()
+        p.autoRefresh()
     }
 
     private fun initRefreshLayout() {
         refresh_layout.setOnRefreshListener {
-            p!!.autoRefresh()
+            p.autoRefresh()
             refresh_layout.finishRefresh(1000)
         }
         refresh_layout.setOnLoadMoreListener {
-            p!!.loadMore()
+            p.loadMore()
             refresh_layout.finishLoadMore(1000)
         }
     }
@@ -65,7 +65,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
 
     override fun initView(savedInstanceState: Bundle?) {
         p = HomePresenter()
-        p!!.attachView(this)
+        p.attachView(this)
         initBanner()
         initRecycler()
         initRefreshLayout()
@@ -74,9 +74,9 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     }
 
     private fun initData() {
-        linkList = ArrayList<String>()
-        imageList = ArrayList<String>()
-        titleList = ArrayList<String>()
+        linkList = ArrayList()
+        imageList = ArrayList()
+        titleList = ArrayList()
     }
 
     private fun initBanner() {
@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     private fun initRecycler() {
         recycyler.layoutManager = LinearLayoutManager(mContext)
         adapter = HomeAdapter(R.layout.item_homepage, null)
-        adapter!!.setOnItemClickListener { adapter, view, position ->
+        adapter.setOnItemClickListener { adapter, view, position ->
             val bean = adapter.data[position] as HomePageArticleBean.DatasBean
             val bundle = Bundle()
             bundle.putInt(Constant.HOME_DETAIL_ID, bean.getId())
@@ -98,27 +98,27 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
             val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, getString(R.string.web_view))
             JumpUtil.overlay(activity!!,HomeDetailActivity::class.java,bundle,options.toBundle())
         }
-        adapter!!.setOnItemChildClickListener { adapter, view, position ->
+        adapter.setOnItemChildClickListener { adapter, view, position ->
             // 收藏  todo
             ToastUtil.showToast("收藏点击了")
         }
-        adapter!!.addHeaderView(bannerView)
+        adapter.addHeaderView(bannerView)
         recycyler.adapter = adapter
     }
 
     override fun onDestroy() {
-        p!!.detachView()
+        p.detachView()
         super.onDestroy()
     }
 
     override fun getBannerOk(bannerBean: List<BenarBean>) {
-        linkList!!.clear()
-        titleList!!.clear()
-        imageList!!.clear()
+        linkList.clear()
+        titleList.clear()
+        imageList.clear()
         for (benarBean in bannerBean) {
-            imageList!!.add(benarBean.imagePath)
-            titleList!!.add(benarBean.title)
-            linkList!!.add(benarBean.url)
+            imageList.add(benarBean.imagePath)
+            titleList.add(benarBean.title)
+            linkList.add(benarBean.url)
         }
         // banner git 地址 https://github.com/youth5201314/banner
         banner.setImageLoader(GlideImageLoader())
@@ -131,10 +131,10 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
                 .setIndicatorGravity(BannerConfig.RIGHT)
                 .start()
         banner.setOnBannerListener { position ->
-            if (!TextUtils.isEmpty(linkList!!.get(position))) {
+            if (!TextUtils.isEmpty(linkList.get(position))) {
                 val bundle = Bundle()
-                bundle.putString(Constant.HOME_DETAIL_TITLE, titleList!!.get(position))
-                bundle.putString(Constant.HOME_DETAIL_PATH, linkList!!.get(position))
+                bundle.putString(Constant.HOME_DETAIL_TITLE, titleList.get(position))
+                bundle.putString(Constant.HOME_DETAIL_PATH, linkList.get(position))
                 // todo 从banner进去是没有id的，不知道收藏是怎么搬到的
                 JumpUtil.overlay(context!!, HomeDetailActivity::class.java, bundle)
             }
@@ -147,7 +147,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
 
     override fun getHomePageListOk(homeList: HomePageArticleBean) {
         showNormal()
-        adapter!!.setNewData(homeList.datas)
+        adapter.setNewData(homeList.datas)
     }
 
     override fun getHomePageListErr(info: String) {
@@ -160,6 +160,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     }
 
     override fun loadEnd() {
+        ToastUtil.showToast("没有更多数据了！")
         refresh_layout.finishLoadMoreWithNoMoreData()
     }
 
@@ -172,7 +173,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     }
 
     override fun setLoadMoreData(any: Any) {
-        adapter!!.addData((any as HomePageArticleBean).datas)
+        adapter.addData((any as HomePageArticleBean).datas)
     }
 
     fun scrollToTop() {
