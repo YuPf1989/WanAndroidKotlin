@@ -99,7 +99,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
             JumpUtil.overlay(activity!!,HomeDetailActivity::class.java,bundle,options.toBundle())
         }
         adapter.setOnItemChildClickListener { adapter, view, position ->
-            // 收藏  todo
+            // 收藏
             ToastUtil.showToast("收藏点击了")
         }
         adapter.addHeaderView(bannerView)
@@ -110,6 +110,8 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
         p.detachView()
         super.onDestroy()
     }
+
+
 
     override fun getBannerOk(bannerBean: List<BenarBean>) {
         linkList.clear()
@@ -135,7 +137,6 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
                 val bundle = Bundle()
                 bundle.putString(Constant.HOME_DETAIL_TITLE, titleList.get(position))
                 bundle.putString(Constant.HOME_DETAIL_PATH, linkList.get(position))
-                // todo 从banner进去是没有id的，不知道收藏是怎么搬到的
                 JumpUtil.overlay(context!!, HomeDetailActivity::class.java, bundle)
             }
         }

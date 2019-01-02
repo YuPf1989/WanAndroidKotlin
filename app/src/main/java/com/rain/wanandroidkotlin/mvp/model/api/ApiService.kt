@@ -42,14 +42,14 @@ interface ApiService {
      * @param id
      */
     @POST("lg/collect/{id}/json")
-    fun collectArticle(@Path("id") id: Int): Observable<BaseResp<Any>>
+    fun collectArticle(@Path("id") id: Int): Observable<Any>
 
     /**
      * 取消收藏文章
      * @param id id
      */
     @POST("lg/uncollect_originId/{id}/json")
-    fun cancelCollectArticle(@Path("id") id: Int): Observable<BaseResp<Any>>
+    fun cancelCollectArticle(@Path("id") id: Int): Observable<Any>
 
     /**
      * 体系数据
@@ -79,13 +79,13 @@ interface ApiService {
      * 获取 我的收藏列表
      */
     @GET("lg/collect/list/{page}/json")
-    fun getCollectionList(@Path("page") page: Int): Observable<BaseResp<CollectBean>>
+    fun getCollectionList(@Path("page") page: Int): Observable<CollectBean>
 
     /**
      * 获取 热门词
      */
     @GET("/friend/json")
-    fun getHotList(): Observable<BaseResp<List<HotBean>>>
+    fun getHotList(): Observable<List<HotBean>>
 
     /**
      * 获取 搜索热词

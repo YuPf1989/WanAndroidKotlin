@@ -79,6 +79,4 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun showLoading() {
         pb.visibility = View.VISIBLE
     }
-
-
 }

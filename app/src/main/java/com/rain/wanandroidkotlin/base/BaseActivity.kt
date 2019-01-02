@@ -15,9 +15,7 @@ abstract class BaseActivity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-
         initView(savedInstanceState)
-
     }
 
     abstract fun initView(savedInstanceState: Bundle?)

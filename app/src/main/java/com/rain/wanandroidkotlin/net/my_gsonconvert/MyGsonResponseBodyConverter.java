@@ -49,7 +49,12 @@ public class MyGsonResponseBodyConverter<T> implements Converter<ResponseBody, T
         MediaType mediaType = value.contentType();
         Charset charset = mediaType != null ? mediaType.charset(UTF_8) : UTF_8;
         // mGson.toJson(re.getData()).getBytes()传输的直接是内层数据
-        ByteArrayInputStream bis = new ByteArrayInputStream(mGson.toJson(re.getData()).getBytes());
+        // data直接为null时，创建空对象
+        Object data = re.getData();
+        if (data == null) {
+            data = new Object();
+        }
+        ByteArrayInputStream bis = new ByteArrayInputStream(mGson.toJson(data).getBytes());
         InputStreamReader reader = new InputStreamReader(bis, charset);
         JsonReader jsonReader = mGson.newJsonReader(reader);
         try {

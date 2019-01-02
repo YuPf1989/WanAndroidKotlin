@@ -10,6 +10,8 @@ import android.webkit.WebSettings
 import com.just.agentweb.AgentWeb
 import com.rain.wanandroidkotlin.R
 import com.rain.wanandroidkotlin.base.BaseActivity
+import com.rain.wanandroidkotlin.mvp.contract.HomeDetailContract
+import com.rain.wanandroidkotlin.mvp.presenter.HomeDetailPresenter
 import com.rain.wanandroidkotlin.util.Constant
 import com.rain.wanandroidkotlin.util.JumpUtil
 import com.rain.wanandroidkotlin.util.SharedPreferenceUtil
@@ -22,11 +24,13 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Date:2018/11/21 14:23
  * Description:
  */
-class HomeDetailActivity : BaseActivity() {
+class HomeDetailActivity : BaseActivity(), HomeDetailContract.View {
     var homeTitle: String? = null
     var homeArtistPath: String? = null
-    var detailId: Int? = null
-    var isCollect: Boolean? = null
+    var detailId: Int = -1
+    var isCollect: Boolean = false
+    lateinit var p: HomeDetailContract.Presenter
+    var collectState: Int = 0// 收藏状态
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView(savedInstanceState: Bundle?) {
         getIntentData()
@@ -51,6 +55,9 @@ class HomeDetailActivity : BaseActivity() {
         //自适应屏幕
         mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
 
+        p = HomeDetailPresenter()
+        p.attachView(this)
+
     }
 
     private fun getIntentData() {
@@ -68,6 +75,27 @@ class HomeDetailActivity : BaseActivity() {
         return R.layout.activity_home_detail
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        p.detachView()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        when (collectState) {
+            1, 4 -> {
+                isCollect = true
+            }
+            2, 3 -> {
+                isCollect = false
+            }
+        }
+        menu.findItem(R.id.menu_article_collect).setIcon(if (isCollect)
+            R.drawable.icon_collect else R.drawable.icon_no_collect)
+        menu.findItem(R.id.menu_article_collect).title = if (isCollect)
+            getString(R.string.already_collect_title) else getString(R.string.like_title)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         return super.onCreateOptionsMenu(menu)
@@ -75,16 +103,25 @@ class HomeDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // 分享
             R.id.menu_article_share -> {
                 val shareIntent = Intent(Intent.ACTION_SEND)
                 shareIntent.type = "text/plain"
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "来自WanAndroid 【${homeTitle}】$homeArtistPath")
                 startActivity(Intent.createChooser(shareIntent, "分享"))
             }
+            // 收藏
             R.id.menu_article_collect -> {
                 val isLogin = SharedPreferenceUtil.get(this, Constant.ISLOGIN, false) as Boolean
                 if (isLogin) {
-                    // 请求网络，如果收藏，取消，否则收藏 todo
+                    // 请求网络，如果收藏，取消，否则收藏
+                    if (detailId != -1) {
+                        if (isCollect) {
+                            p.cancelCollectArticle(detailId)
+                        } else {
+                            p.collectArticle(detailId)
+                        }
+                    }
                 } else {
                     ToastUtil.showToast(getString(R.string.please_login))
                     JumpUtil.overlay(this, LoginActivity::class.java)
@@ -111,5 +148,33 @@ class HomeDetailActivity : BaseActivity() {
         return super.onMenuOpened(featureId, menu)
     }
 
+    override fun collectArticleOK(info: String) {
+        collectState = 1
+        ToastUtil.showToast(getString(R.string.collect_success))
+    }
 
+    override fun collectArticleErr(info: String) {
+        collectState = 2
+        if (info.contains(getString(R.string.please_login))) {
+            ToastUtil.showToast(getString(R.string.please_login))
+            JumpUtil.overlay(this, LoginActivity::class.java)
+        } else {
+            ToastUtil.showToast(getString(R.string.cancel_collect_fail)+info)
+        }
+    }
+
+    override fun cancelCollectArticleOK(info: String) {
+        collectState = 3
+        ToastUtil.showToast(getString(R.string.cancel_collect_success))
+    }
+
+    override fun cancelCollectArticleErr(info: String) {
+        collectState = 4
+        if (info.contains(getString(R.string.please_login))) {
+            ToastUtil.showToast(getString(R.string.please_login))
+            JumpUtil.overlay(this, LoginActivity::class.java)
+        } else {
+            ToastUtil.showToast(getString(R.string.cancel_collect_fail)+info)
+        }
+    }
 }

@@ -12,7 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import com.rain.wanandroidkotlin.base.BaseActivity
 import com.rain.wanandroidkotlin.eventbus.UpdateUserInfo
 import com.rain.wanandroidkotlin.net.cookie.CookiesManager
-import com.rain.wanandroidkotlin.ui.activity.LoginActivity
+import com.rain.wanandroidkotlin.ui.activity.*
 import com.rain.wanandroidkotlin.ui.fragment.DemoFragment
 import com.rain.wanandroidkotlin.ui.fragment.HomeFragment
 import com.rain.wanandroidkotlin.ui.fragment.SystemFragment
@@ -155,14 +155,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
+    // todo
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_hot -> {
-                ToastUtil.showToast("action_hot")
+                JumpUtil.overlay(this, HotWebsiteActivity::class.java)
                 return true
             }
             R.id.action_search -> {
-                ToastUtil.showToast("action_search")
+                JumpUtil.overlay(this, SearchActivity::class.java)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -170,17 +171,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_collect -> {
-                // Handle the camera action
+                JumpUtil.overlay(this,CollectionListActivity::class.java)
             }
 
             R.id.nav_setting -> {
 
             }
             R.id.nav_about_us -> {
-
+                JumpUtil.overlay(this, AboutUsActivity::class.java)
             }
 
             R.id.nav_loginout -> {
@@ -190,7 +190,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 setUserInfo()
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

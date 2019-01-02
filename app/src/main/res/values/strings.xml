@@ -73,11 +73,11 @@
     <string name="float_button">com.rain.wanandroidkotlin.util.behavior.FabScrollBehavior</string>
     <string name="bottom_bervaior">com.rain.wanandroidkotlin.util.behavior.BottomNavigationBehavior</string>
     <string name="about_content"><![CDATA[
-        <p>\t\t本app接口采用弘扬大佬提供wanandroidAPI，该app 目前使用使用主要技术：Material Design + MVP + Rxjava2 + Retrofit + Glide ，包括部分第三方库：Butterknife + Agentweb + SmartRefreshLayout + FlycoTabLayout_Lib 等等...</p>
-        <p>\t\t由于本人技术一般，所以有不足的地方或者bug欢迎大佬指出 地址：<a href="https://github.com/yangmingchuan/WanAndroidMaster/issues" target="_blank">https://github.com/yangmingchuan/WanAndroidMaster</a></p>
+        <p>\t\t本app接口采用弘扬大佬提供wanandroidAPI，该app 目前使用使用主要技术：Kotlin+Material Design + MVP + Rxjava2 + Retrofit + Glide ，包括部分第三方库：Agentweb + SmartRefreshLayout + EventBus 等等...</p>
+        <p>\t\t由于本人技术一般，所以有不足的地方或者bug欢迎大佬指出 地址：<a href="https://github.com/YuPf1989/WanAndroidKotlin/issues" target="_blank">https://github.com/YuPf1989/WanAndroidKotlin</a></p>
             <br/>\t\t\t\t<a href="http://www.wanandroid.com/index" target="_blank">WanAndroid</a>
-            <br/>\t\t\t\t<a href="https://blog.csdn.net/qq_27948659" target="_blank">本人csdn</a>
-        <p>\t\t如果您希望长期关注WanAndroid，可以加入弘扬 wanandroid QQ群：<b>591683946</b> 或者加入android 基佬技术交流群 <b>195135516</b></p>
+            <br/>\t\t\t\t<a href="https://blog.csdn.net/alex01550" target="_blank">本人csdn</a>
+        <p>\t\t如果您希望长期关注WanAndroid，可以加入弘扬 wanandroid QQ群：<b>591683946</b></p>
     ]]></string>
 
 

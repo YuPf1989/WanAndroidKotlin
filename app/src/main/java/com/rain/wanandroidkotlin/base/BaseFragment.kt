@@ -15,24 +15,23 @@ import com.hankkin.pagelayout.PageLayout
  */
 abstract class BaseFragment : Fragment(), ILayoutView {
     override fun showNormal() {
-        mPageLayout?.hide()
+        mPageLayout.hide()
     }
 
     override fun showLoading() {
-        mPageLayout?.showLoading()
+        mPageLayout.showLoading()
     }
 
     override fun showError(code: Int, msg: String) {
-        mPageLayout?.showError()
+        mPageLayout.showError()
     }
 
     override fun showEmpty() {
-        mPageLayout?.showEmpty()
+        mPageLayout.showEmpty()
     }
 
     protected var mContext: Activity? = null
-    protected var mNormalView: View? = null
-    private var mPageLayout: PageLayout? = null
+    private lateinit var mPageLayout: PageLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutId(), container, false)
