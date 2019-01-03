@@ -28,5 +28,17 @@
 2. 使用retrofit+rxjava对网络请求进行了封装，对err_code进行了统一处理，只需要对data进行解析操作
 3. 采用Material Design设计风格，MVP分层设计
 
-## 致谢轮子
+## 轮子
+- Rxjava
+- Retrofit
+- Glide
+- pageLayout
+- BaseRecyclerViewAdapterHelper
+- Circleimageview
+- SmartRefreshLayout
+- Flowlayout
+- Agentweb...等
+
+## 致谢
+感谢鸿洋大佬提供的api和各开源项目的作者，给了我很多参考
 
