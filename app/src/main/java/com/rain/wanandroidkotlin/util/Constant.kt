@@ -33,4 +33,16 @@ object Constant {
     val DEMO_FRAGMENT_ID = "demo_fragment_id";
     val SYSTEM = "system"
     val SYSTEM_FRAGMENT_ID = "system_fragment_id"
+
+    /**
+     * 保存 搜索历史 sp key
+     *
+     */
+    val DEFAULT = "default"
+    val SEARCH_HISTORY = "search_history"
+
+    /**
+     * 搜索界面 跳转 搜索界面界面 key
+     */
+    val SEARCH_RESULT_KEY = "search_result_key"
 }

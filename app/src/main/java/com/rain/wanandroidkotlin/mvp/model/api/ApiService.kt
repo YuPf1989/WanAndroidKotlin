@@ -92,7 +92,7 @@ interface ApiService {
      * @return
      */
     @GET("/hotkey/json")
-    fun getHitKeyBean(): Observable<BaseResp<List<HotKeyBean>>>
+    fun getHitKeyBean(): Observable<List<HotKeyBean>>
 
 
     /**
@@ -103,7 +103,7 @@ interface ApiService {
      * @return
      */
     @POST("/article/query/{page}/json")
-    fun getSearechResult(@Path("page") page: Int, @Query("k") key: String): Observable<BaseResp<HomePageArticleBean>>
+    fun getSearechResult(@Path("page") page: Int, @Query("k") key: String): Observable<HomePageArticleBean>
 
     /**
      * 获取 微信公众号列表

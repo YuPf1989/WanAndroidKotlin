@@ -2,6 +2,8 @@ package com.rain.wanandroidkotlin.base
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.hankkin.pagelayout.PageLayout
 
 /**
@@ -10,12 +12,11 @@ import com.hankkin.pagelayout.PageLayout
  * Description:
  * 带有不同状态布局的activity
  */
-abstract class BaseLayoutActivity : BaseActivity(), ILayoutView {
-    lateinit var mPageLayout: PageLayout
-    lateinit var normalView:View
-
+abstract class BaseLayoutActivity : AppCompatActivity(), ILayoutView {
+    private lateinit var mPageLayout: PageLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(getLayoutId())
         mPageLayout = PageLayout.Builder(this)
                 .initPage(setTargetView())
                 .setOnRetryListener(object : PageLayout.OnRetryClickListener {
@@ -24,8 +25,14 @@ abstract class BaseLayoutActivity : BaseActivity(), ILayoutView {
                     }
                 })
                 .create()
-
+        initView(savedInstanceState)
     }
+
+    abstract fun initView(savedInstanceState: Bundle?)
+
+    abstract fun getLayoutId(): Int
+
+    abstract fun setTargetView(): View
 
     override fun showNormal() {
         mPageLayout.hide()
@@ -43,7 +50,12 @@ abstract class BaseLayoutActivity : BaseActivity(), ILayoutView {
         mPageLayout.showEmpty()
     }
 
-    open fun setTargetView(): View {
-        return normalView
+    protected fun initToolbar(toobar: Toolbar, title:String, homeAsUpEnabled:Boolean) {
+        toobar.title = title
+        setSupportActionBar(toobar)
+        // 设置toolbar是否有返回按钮
+        supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
+        toobar.setNavigationOnClickListener { finish() }
     }
+
 }

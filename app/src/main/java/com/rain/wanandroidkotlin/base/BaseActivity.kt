@@ -27,14 +27,7 @@ abstract class BaseActivity :AppCompatActivity() {
         setSupportActionBar(toobar)
         // 设置toolbar是否有返回按钮
         supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUpEnabled)
+        toobar.setNavigationOnClickListener { finish() }
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 
 }

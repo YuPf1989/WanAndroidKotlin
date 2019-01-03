@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutView>() {
     var currentPage: Int = 0
 
-    var view:HomeContract.LayoutView? = null
+    lateinit var view:HomeContract.LayoutView
 
     override fun attachView(view: HomeContract.LayoutView) {
         this.view = view
@@ -35,9 +35,9 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    view!!.getBannerOk(it)
+                    view.getBannerOk(it)
                 }, {
-                    view!!.getBannerErr(ExceptionHandle.handleException(it))
+                    view.getBannerErr(ExceptionHandle.handleException(it))
                 })
         addSubscription(disposable)
     }
@@ -48,9 +48,9 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    view!!.getHomePageListOk(it)
+                    view.getHomePageListOk(it)
                 }, {
-                    view!!.getHomePageListErr(ExceptionHandle.handleException(it))
+                    view.getHomePageListErr(ExceptionHandle.handleException(it))
                 })
         addSubscription(disposable)
     }
@@ -62,14 +62,14 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (currentPage <= it.pageCount) {
-                        view!!.setLoadMoreData(it)
-                        view!!.loadComplete()
+                        view.setLoadMoreData(it)
+                        view.loadComplete()
                     }
                     if (currentPage > it.pageCount) {
-                        view!!.loadEnd()
+                        view.loadEnd()
                     }
                 }, {
-                    view!!.loadFail()
+                    view.loadFail()
                 })
         addSubscription(disposable)
     }
