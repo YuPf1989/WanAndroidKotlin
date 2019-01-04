@@ -1,5 +1,6 @@
 package com.rain.wanandroidkotlin.ui.adapter
 
+import android.text.Html
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
@@ -17,7 +18,7 @@ class HomeAdapter(layoutResId: Int, data: List<HomePageArticleBean.DatasBean>?) 
     override fun convert(helper: BaseViewHolder, item: HomePageArticleBean.DatasBean) {
         helper.getView<View>(R.id.tv_tag).setVisibility(View.GONE)
         if (!TextUtils.isEmpty(item.getTitle())) {
-            helper.setText(R.id.tv_content, item.getTitle())
+            helper.setText(R.id.tv_content, Html.fromHtml(item.getTitle()))
         }
         if (!TextUtils.isEmpty(item.getAuthor())) {
             helper.setText(R.id.tv_author, item.getAuthor())

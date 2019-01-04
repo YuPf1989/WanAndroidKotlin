@@ -7,11 +7,10 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.LazyLoadFragment
+import com.rain.wanandroidkotlin.base.LazyLoadLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.SystemDetailListContract
 import com.rain.wanandroidkotlin.mvp.model.entity.SystemDetailListBean
 import com.rain.wanandroidkotlin.mvp.presenter.SystemDetailListPresenter
-import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
 import com.rain.wanandroidkotlin.ui.activity.HomeDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.SystemDetailListAdapter
 import com.rain.wanandroidkotlin.util.Constant
@@ -20,22 +19,22 @@ import com.rain.wanandroidkotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_system_detail.*
 
 
-private const val TAG = "SystemListFragment"
+private const val TAG = "SystemListLayoutFragment"
 /**
  * Author:rain
  * Date:2018/12/29 11:46
  * Description:
  * 注意这里的page参数，page是从0开始的
  */
-class SystemListFragment:LazyLoadFragment(),SystemDetailListContract.View {
+class SystemListLayoutFragment:LazyLoadLayoutFragment(),SystemDetailListContract.View {
 
     lateinit var p:SystemDetailListContract.Presenter
     lateinit var adapter:SystemDetailListAdapter
     var sysId = 0
 
     companion object {
-        fun getInstance(id: Int): SystemListFragment {
-            val fragment = SystemListFragment()
+        fun getInstance(id: Int): SystemListLayoutFragment {
+            val fragment = SystemListLayoutFragment()
             val bundle = Bundle()
             bundle.putInt(Constant.SYSTEM_FRAGMENT_ID, id)
             fragment.arguments = bundle
@@ -113,7 +112,7 @@ class SystemListFragment:LazyLoadFragment(),SystemDetailListContract.View {
     }
 
     override fun getSystemDetailListResultErr(err: String) {
-        showError(ExceptionHandle.errorCode, err)
+        showError()
         ToastUtil.showToast(err)
     }
 

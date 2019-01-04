@@ -127,6 +127,7 @@ class SearchActivity:BaseLayoutActivity(),SearchContract.View, BaseQuickAdapter.
     }
 
     override fun getHotListErr(err: String) {
+        showError()
     }
 
     /**

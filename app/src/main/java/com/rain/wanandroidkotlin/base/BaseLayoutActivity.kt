@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hankkin.pagelayout.PageLayout
+import com.rain.wanandroidkotlin.R
 
 /**
  * Author:rain
@@ -19,6 +20,7 @@ abstract class BaseLayoutActivity : AppCompatActivity(), ILayoutView {
         setContentView(getLayoutId())
         mPageLayout = PageLayout.Builder(this)
                 .initPage(setTargetView())
+                .setLoading(R.layout.layout_loading_view,R.id.tv_loading)
                 .setOnRetryListener(object : PageLayout.OnRetryClickListener {
                     override fun onRetry() {
                         reload()
@@ -42,7 +44,7 @@ abstract class BaseLayoutActivity : AppCompatActivity(), ILayoutView {
         mPageLayout.showLoading()
     }
 
-    override fun showError(code: Int, msg: String) {
+    override fun showError() {
         mPageLayout.showError()
     }
 

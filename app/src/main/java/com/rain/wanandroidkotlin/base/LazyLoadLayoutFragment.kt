@@ -1,7 +1,6 @@
 package com.rain.wanandroidkotlin.base
 
 import android.os.Bundle
-import android.util.Log
 
 /**
  * Author:rain
@@ -11,8 +10,8 @@ import android.util.Log
  * 只有当前fragment初始化过，并且对用户可见,没有加载过数据的时候才进行数据加载
  * 只有使用viewpager setUserVisibleHint才会调用
  */
-abstract class LazyLoadFragment : BaseFragment() {
-    val TAG = "LazyLoadFragment"
+abstract class LazyLoadLayoutFragment : BaseLayoutFragment() {
+    val TAG = "LazyLoadLayoutFragment"
     // 界面是否初始化过
     private var isViewInitiated = false
     // 界面对用户是否可见

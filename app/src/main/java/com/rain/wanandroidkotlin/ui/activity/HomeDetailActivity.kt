@@ -156,10 +156,7 @@ class HomeDetailActivity : BaseActivity(), HomeDetailContract.View {
     override fun collectArticleErr(info: String) {
         collectState = 2
         if (info.contains(getString(R.string.please_login))) {
-            ToastUtil.showToast(getString(R.string.please_login))
             JumpUtil.overlay(this, LoginActivity::class.java)
-        } else {
-            ToastUtil.showToast(getString(R.string.cancel_collect_fail)+info)
         }
     }
 
@@ -171,10 +168,7 @@ class HomeDetailActivity : BaseActivity(), HomeDetailContract.View {
     override fun cancelCollectArticleErr(info: String) {
         collectState = 4
         if (info.contains(getString(R.string.please_login))) {
-            ToastUtil.showToast(getString(R.string.please_login))
             JumpUtil.overlay(this, LoginActivity::class.java)
-        } else {
-            ToastUtil.showToast(getString(R.string.cancel_collect_fail)+info)
         }
     }
 }

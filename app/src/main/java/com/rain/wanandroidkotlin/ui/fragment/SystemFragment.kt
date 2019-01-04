@@ -2,21 +2,17 @@ package com.rain.wanandroidkotlin.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.BaseFragment
-import com.rain.wanandroidkotlin.base.LazyLoadFragment
+import com.rain.wanandroidkotlin.base.BaseLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.SystemContract
 import com.rain.wanandroidkotlin.mvp.model.entity.SystemBean
 import com.rain.wanandroidkotlin.mvp.presenter.SystemPresenter
 import com.rain.wanandroidkotlin.ui.activity.SystemDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.SystemAdapter
 import com.rain.wanandroidkotlin.util.Constant
-import com.rain.wanandroidkotlin.util.JumpUtil
-import com.rain.wanandroidkotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_system.*
 
 /**
@@ -24,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_system.*
  * Date:2018/11/19 11:18
  * Description:
  */
-class SystemFragment : BaseFragment(),SystemContract.View, BaseQuickAdapter.OnItemClickListener {
+class SystemFragment : BaseLayoutFragment(),SystemContract.View, BaseQuickAdapter.OnItemClickListener {
 
 
     var listSystem: List<SystemBean> = ArrayList()
@@ -85,6 +81,6 @@ class SystemFragment : BaseFragment(),SystemContract.View, BaseQuickAdapter.OnIt
     }
 
     override fun getSystemListErr(info: String) {
-        ToastUtil.showToast(info)
+        showError()
     }
 }

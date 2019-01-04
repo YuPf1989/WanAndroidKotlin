@@ -8,12 +8,11 @@ import android.text.TextUtils
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.BaseFragment
+import com.rain.wanandroidkotlin.base.BaseLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.HomeContract
 import com.rain.wanandroidkotlin.mvp.model.entity.BenarBean
 import com.rain.wanandroidkotlin.mvp.model.entity.HomePageArticleBean
 import com.rain.wanandroidkotlin.mvp.presenter.HomePresenter
-import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
 import com.rain.wanandroidkotlin.ui.activity.HomeDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.HomeAdapter
 import com.rain.wanandroidkotlin.util.Constant
@@ -31,7 +30,7 @@ import java.util.*
  * Date:2018/11/19 11:18
  * Description:
  */
-class HomeFragment : BaseFragment(), HomeContract.LayoutView {
+class HomeFragment : BaseLayoutFragment(), HomeContract.LayoutView {
     lateinit var p: HomePresenter
     lateinit var adapter: HomeAdapter
     lateinit var bannerView: LinearLayout
@@ -143,7 +142,6 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     }
 
     override fun getBannerErr(info: String) {
-        ToastUtil.showToast(info)
     }
 
     override fun getHomePageListOk(homeList: HomePageArticleBean) {
@@ -152,7 +150,7 @@ class HomeFragment : BaseFragment(), HomeContract.LayoutView {
     }
 
     override fun getHomePageListErr(info: String) {
-        showError(ExceptionHandle.errorCode,info)
+        showError()
         ToastUtil.showToast(info)
     }
 

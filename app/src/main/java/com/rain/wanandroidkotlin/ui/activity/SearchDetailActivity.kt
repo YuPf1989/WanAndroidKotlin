@@ -86,7 +86,7 @@ class SearchDetailActivity:BaseLayoutActivity(),SearchDetailContract.View, BaseQ
     }
 
     override fun getSearechResultErr(err: String) {
-
+        showError()
     }
 
     override fun loadEnd() {

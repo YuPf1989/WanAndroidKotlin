@@ -3,17 +3,14 @@ package com.rain.wanandroidkotlin.ui.fragment
 import android.app.ActivityOptions
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.LazyLoadFragment
+import com.rain.wanandroidkotlin.base.LazyLoadLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.WxDetailContract
 import com.rain.wanandroidkotlin.mvp.model.entity.WxPublicListBean
 import com.rain.wanandroidkotlin.mvp.presenter.WxDetailPresenter
-import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
 import com.rain.wanandroidkotlin.ui.activity.HomeDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.WxDetailAdapter
 import com.rain.wanandroidkotlin.util.Constant
@@ -26,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_system_detail.*
  * Date:2018/12/26 9:39
  * Description:
  */
-class WxDetailFragment : LazyLoadFragment(), WxDetailContract.View {
+class WxDetailFragment : LazyLoadLayoutFragment(), WxDetailContract.View {
     var Wxid = -1
     lateinit var p: WxDetailPresenter
     lateinit var adapter: WxDetailAdapter
@@ -109,8 +106,7 @@ class WxDetailFragment : LazyLoadFragment(), WxDetailContract.View {
     }
 
     override fun getWxPublicErr(err: String) {
-        showError(ExceptionHandle.errorCode, err)
-        ToastUtil.showToast(err)
+        showError()
     }
 
     override fun loadEnd() {

@@ -7,15 +7,12 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.LazyLoadFragment
+import com.rain.wanandroidkotlin.base.LazyLoadLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.DemoDetailContract
 import com.rain.wanandroidkotlin.mvp.model.entity.DemoDetailListBean
-import com.rain.wanandroidkotlin.mvp.model.entity.WxPublicListBean
 import com.rain.wanandroidkotlin.mvp.presenter.DemoDetailPresenter
-import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
 import com.rain.wanandroidkotlin.ui.activity.HomeDetailActivity
 import com.rain.wanandroidkotlin.ui.adapter.DemoDetailAdapter
-import com.rain.wanandroidkotlin.ui.adapter.WxDetailAdapter
 import com.rain.wanandroidkotlin.util.Constant
 import com.rain.wanandroidkotlin.util.JumpUtil
 import com.rain.wanandroidkotlin.util.ToastUtil
@@ -26,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_system_detail.*
  * Date:2018/12/26 9:39
  * Description:
  */
-class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
+class DemoDetailFragment : LazyLoadLayoutFragment(), DemoDetailContract.View {
     var demoId = -1
     lateinit var p: DemoDetailPresenter
     lateinit var adapter: DemoDetailAdapter
@@ -109,8 +106,7 @@ class DemoDetailFragment : LazyLoadFragment(), DemoDetailContract.View {
     }
 
     override fun getDemoListErr(err: String) {
-        showError(ExceptionHandle.errorCode, err)
-        ToastUtil.showToast(err)
+        showError()
     }
 
     override fun loadEnd() {

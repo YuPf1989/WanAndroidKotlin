@@ -1,6 +1,5 @@
 package com.rain.wanandroidkotlin.ui.adapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

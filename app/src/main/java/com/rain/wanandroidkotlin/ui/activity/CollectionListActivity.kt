@@ -92,7 +92,10 @@ class CollectionListActivity: BaseLayoutActivity(),CollectListContract.View, Bas
     }
 
     override fun getCollectionListErr(err: String) {
-        showError(ExceptionHandle.errorCode,ExceptionHandle.errorMsg)
+        if (err.contains(getString(R.string.please_login))) {
+            JumpUtil.overlay(this, LoginActivity::class.java)
+        }
+        showError()
     }
 
     override fun loadEnd() {

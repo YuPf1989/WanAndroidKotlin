@@ -2,13 +2,11 @@ package com.rain.wanandroidkotlin.ui.fragment
 
 import android.os.Bundle
 import com.rain.wanandroidkotlin.R
-import com.rain.wanandroidkotlin.base.BaseFragment
+import com.rain.wanandroidkotlin.base.BaseLayoutFragment
 import com.rain.wanandroidkotlin.mvp.contract.DemoContract
 import com.rain.wanandroidkotlin.mvp.model.entity.DemoTitleBean
 import com.rain.wanandroidkotlin.mvp.presenter.DemoPresenter
-import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
 import com.rain.wanandroidkotlin.ui.adapter.DemoFragmentAdapter
-import com.rain.wanandroidkotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_wx.*
 
 /**
@@ -16,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_wx.*
  * Date:2018/11/19 11:18
  * Description:
  */
-class DemoFragment : BaseFragment(),DemoContract.View {
+class DemoFragment : BaseLayoutFragment(),DemoContract.View {
     lateinit var p: DemoPresenter
     lateinit var titles: ArrayList<String>
     lateinit var fragments: ArrayList<DemoDetailFragment>
@@ -76,7 +74,6 @@ class DemoFragment : BaseFragment(),DemoContract.View {
     }
 
     override fun getDemoResultErr(err: String) {
-        showError(ExceptionHandle.errorCode,err)
-        ToastUtil.showToast(err)
+        showError()
     }
 }

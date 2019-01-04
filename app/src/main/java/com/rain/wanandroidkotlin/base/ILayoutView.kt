@@ -19,7 +19,7 @@ interface ILayoutView :IView{
     /**
      * 网络错误
      */
-    fun showError(code:Int,msg:String)
+    fun showError()
 
     /**
      * 没有数据

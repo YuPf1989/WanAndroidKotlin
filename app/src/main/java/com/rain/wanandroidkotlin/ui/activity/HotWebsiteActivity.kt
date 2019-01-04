@@ -79,6 +79,6 @@ class HotWebsiteActivity:BaseLayoutActivity(),HotContract.View {
     }
 
     override fun getHotResultErr(err: String) {
-
+        showError()
     }
 }

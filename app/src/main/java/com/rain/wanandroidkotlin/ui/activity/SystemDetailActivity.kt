@@ -1,12 +1,11 @@
 package com.rain.wanandroidkotlin.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import com.rain.wanandroidkotlin.R
 import com.rain.wanandroidkotlin.base.BaseActivity
 import com.rain.wanandroidkotlin.mvp.model.entity.SystemBean
 import com.rain.wanandroidkotlin.ui.adapter.SystemDetailFragmentAdapter
-import com.rain.wanandroidkotlin.ui.fragment.SystemListFragment
+import com.rain.wanandroidkotlin.ui.fragment.SystemListLayoutFragment
 import com.rain.wanandroidkotlin.util.Constant
 import kotlinx.android.synthetic.main.activity_system_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -20,7 +19,7 @@ private const val TAG = "SystemDetailActivity"
 class SystemDetailActivity:BaseActivity() {
     lateinit var toolbarTitle:String
     lateinit var tabTitles:ArrayList<String>
-    lateinit var fragments:ArrayList<SystemListFragment>
+    lateinit var fragments:ArrayList<SystemListLayoutFragment>
     lateinit var adapter: SystemDetailFragmentAdapter
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -47,7 +46,7 @@ class SystemDetailActivity:BaseActivity() {
             it.children.forEach {
                 tab.addTab(tab.newTab().setText(it.name))
                 tabTitles.add(it.name)
-                fragments.add(SystemListFragment.getInstance(it.id))
+                fragments.add(SystemListLayoutFragment.getInstance(it.id))
             }
         }
     }
