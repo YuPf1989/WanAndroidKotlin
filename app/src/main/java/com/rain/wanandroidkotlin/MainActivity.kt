@@ -11,7 +11,6 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationView
 import com.rain.wanandroidkotlin.base.BaseActivity
 import com.rain.wanandroidkotlin.eventbus.UpdateUserInfo
-import com.rain.wanandroidkotlin.net.cookie.CookiesManager
 import com.rain.wanandroidkotlin.ui.activity.*
 import com.rain.wanandroidkotlin.ui.fragment.DemoFragment
 import com.rain.wanandroidkotlin.ui.fragment.HomeFragment
@@ -184,7 +183,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
             R.id.nav_loginout -> {
                 SharedPreferenceUtil.clear(this)
-                CookiesManager.clearAllCookies()
+                clearCookies()
                 ToastUtil.showToast(getString(R.string.logout_ok))
                 setUserInfo()
             }

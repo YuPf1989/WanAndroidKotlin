@@ -24,7 +24,7 @@ class SearchDetailPresenter:PresenterImpl<SearchDetailContract.View>(),SearchDet
     override fun getSearechResult(page: Int, key: String) {
         currentPage = page
         this.key = key
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getSearechResult(page, key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -45,7 +45,7 @@ class SearchDetailPresenter:PresenterImpl<SearchDetailContract.View>(),SearchDet
     override fun loadMore() {
         if (currentPage != -1 && key.isNotEmpty()) {
             currentPage++
-            val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+            val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                     .getSearechResult(currentPage, key)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

@@ -20,7 +20,7 @@ class HomeDetailPresenter:PresenterImpl<HomeDetailContract.View>(),HomeDetailCon
         this.view = view
     }
     override fun collectArticle(id:Int) {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .collectArticle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -36,7 +36,7 @@ class HomeDetailPresenter:PresenterImpl<HomeDetailContract.View>(),HomeDetailCon
     }
 
     override fun cancelCollectArticle(id:Int) {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .collectArticle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

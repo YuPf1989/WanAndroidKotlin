@@ -31,7 +31,7 @@ class WxDetailPresenter:PresenterImpl<WxDetailContract.View>(),WxDetailContract.
     override fun getWxPublicListResult(id: Int, page: Int) {
         this.id = id
         this.page = page
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getWXDetailList(page, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,7 +46,7 @@ class WxDetailPresenter:PresenterImpl<WxDetailContract.View>(),WxDetailContract.
 
     override fun loadMore() {
         page++
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getWXDetailList(page, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

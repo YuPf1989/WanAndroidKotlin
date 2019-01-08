@@ -30,7 +30,7 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
     }
 
     override fun getBanner() {
-        val disposable = RetrofitHelper.creatApi(ApiService::class.java)
+        val disposable = RetrofitHelper.createApi(ApiService::class.java)
                 .getBannerList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +43,7 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
     }
 
     override fun getHomePageListData(page: Int) {
-        val disposable = RetrofitHelper.creatApi(ApiService::class.java)
+        val disposable = RetrofitHelper.createApi(ApiService::class.java)
                 .getArticleList(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,7 +56,7 @@ class HomePresenter : HomeContract.Presenter, PresenterImpl<HomeContract.LayoutV
     }
 
     fun getHomePageListMoreData(page: Int) {
-        val disposable = RetrofitHelper.creatApi(ApiService::class.java)
+        val disposable = RetrofitHelper.createApi(ApiService::class.java)
                 .getArticleList(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

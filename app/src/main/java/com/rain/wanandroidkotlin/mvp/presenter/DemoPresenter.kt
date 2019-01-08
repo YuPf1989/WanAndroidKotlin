@@ -23,7 +23,7 @@ class DemoPresenter: DemoContract.Presenter,PresenterImpl<DemoContract.View>() {
     }
 
     override fun getDemoListData() {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getDemoTitleList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

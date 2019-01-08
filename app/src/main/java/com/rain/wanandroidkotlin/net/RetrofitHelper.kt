@@ -1,7 +1,7 @@
 package com.rain.wanandroidkotlin.net
 
 import android.annotation.SuppressLint
-import com.rain.wanandroidkotlin.net.cookie.CookiesManager
+import com.rain.wanandroidkotlin.getCookieJar
 import com.rain.wanandroidkotlin.net.my_gsonconvert.MyGsonConverterFactory
 import com.rain.wanandroidkotlin.util.Constant
 import okhttp3.OkHttpClient
@@ -13,6 +13,7 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509TrustManager
 
+
 /**
  * Author:rain
  * Date:2018/11/15 17:19
@@ -20,9 +21,9 @@ import javax.net.ssl.X509TrustManager
  * 默认单例模式
  */
 object RetrofitHelper {
-    val retrofit: Retrofit
+    private val retrofit: Retrofit
 
-    fun <T> creatApi(service: Class<T>): T {
+    fun <T> createApi(service: Class<T>): T {
         return retrofit.create(service)
     }
 
@@ -46,8 +47,8 @@ object RetrofitHelper {
         }
 
         val client = OkHttpClient.Builder()
-                .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .cookieJar(CookiesManager())
+                .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+                .cookieJar(getCookieJar())
                 .followRedirects(true)
                 .retryOnConnectionFailure(true)
                 .followSslRedirects(true)

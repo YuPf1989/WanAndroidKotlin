@@ -1,5 +1,7 @@
 package com.rain.wanandroidkotlin.util
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+
 /**
  * Author:rain
  * Date:2018/11/16 11:47
@@ -45,4 +47,7 @@ object Constant {
      * 搜索界面 跳转 搜索界面界面 key
      */
     val SEARCH_RESULT_KEY = "search_result_key"
+
+
+    var cookiejar:PersistentCookieJar? = null
 }

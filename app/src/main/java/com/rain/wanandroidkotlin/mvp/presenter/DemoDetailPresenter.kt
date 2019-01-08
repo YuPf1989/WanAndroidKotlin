@@ -2,7 +2,6 @@ package com.rain.wanandroidkotlin.mvp.presenter
 
 import com.rain.wanandroidkotlin.base.PresenterImpl
 import com.rain.wanandroidkotlin.mvp.contract.DemoDetailContract
-import com.rain.wanandroidkotlin.mvp.contract.WxDetailContract
 import com.rain.wanandroidkotlin.mvp.model.api.ApiService
 import com.rain.wanandroidkotlin.net.RetrofitHelper
 import com.rain.wanandroidkotlin.net.exception.ExceptionHandle
@@ -32,7 +31,7 @@ class DemoDetailPresenter:PresenterImpl<DemoDetailContract.View>(),DemoDetailCon
     override fun getDemoListResult(id: Int, page: Int) {
         this.id = id
         this.page = page
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getDemoDetailList(page, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,7 +46,7 @@ class DemoDetailPresenter:PresenterImpl<DemoDetailContract.View>(),DemoDetailCon
 
     override fun loadMore() {
         page++
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getDemoDetailList(page, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

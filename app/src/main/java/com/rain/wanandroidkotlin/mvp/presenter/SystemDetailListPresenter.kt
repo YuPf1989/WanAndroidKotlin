@@ -31,7 +31,7 @@ class SystemDetailListPresenter : PresenterImpl<SystemDetailListContract.View>()
 
     override fun loadMore() {
         currentPage++
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getSystemDetailList(currentPage, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,7 +52,7 @@ class SystemDetailListPresenter : PresenterImpl<SystemDetailListContract.View>()
     override fun getSystemDetailList(page: Int, id: Int) {
         currentPage = page
         this.id = id
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getSystemDetailList(currentPage, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

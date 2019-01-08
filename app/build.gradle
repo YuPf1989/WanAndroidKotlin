@@ -64,4 +64,8 @@ dependencies {
     implementation deps.flowlayout
     implementation deps.agentweb
     implementation project(':pagelayout')
+
+    // cookie持久化
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
 }

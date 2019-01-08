@@ -29,7 +29,7 @@ class SystemPresenter:PresenterImpl<SystemContract.View>(),SystemContract.Presen
 
 
     override fun getSystemList() {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getSystemList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

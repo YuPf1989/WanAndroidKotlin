@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        presenter = LoginPresenter(this)
+        presenter = LoginPresenter()
         presenter.attachView(this)
         pb = DialogUtil.createCenterProgressBar(this)
         pb.visibility = View.GONE

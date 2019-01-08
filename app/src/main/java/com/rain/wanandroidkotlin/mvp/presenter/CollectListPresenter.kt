@@ -27,7 +27,7 @@ class CollectListPresenter:PresenterImpl<CollectListContract.View>(),CollectList
     override fun onLoadMore() {
         if (currentPage != -1) {
             currentPage++
-            RetrofitHelper.creatApi(ApiService::class.java)
+            RetrofitHelper.createApi(ApiService::class.java)
                     .getCollectionList(currentPage)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -47,7 +47,7 @@ class CollectListPresenter:PresenterImpl<CollectListContract.View>(),CollectList
 
     override fun getCollectionList(page: Int) {
         currentPage = page
-        RetrofitHelper.creatApi(ApiService::class.java)
+        RetrofitHelper.createApi(ApiService::class.java)
                 .getCollectionList(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

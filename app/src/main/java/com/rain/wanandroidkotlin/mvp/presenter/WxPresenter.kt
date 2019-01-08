@@ -23,7 +23,7 @@ class WxPresenter:WxContract.Presenter,PresenterImpl<WxContract.View>() {
         this.view = view
     }
     override fun getWxListData() {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getWXList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

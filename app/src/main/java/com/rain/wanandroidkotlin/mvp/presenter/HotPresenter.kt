@@ -22,7 +22,7 @@ class HotPresenter:PresenterImpl<HotContract.View>(),HotContract.Presenter {
     }
 
     override fun getHotList() {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getHotList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

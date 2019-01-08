@@ -24,7 +24,7 @@ class SearchPresenter:PresenterImpl<SearchContract.View>(),SearchContract.Presen
         model = SearchModel()
     }
     override fun getHotListResult() {
-        val subscribe = RetrofitHelper.creatApi(ApiService::class.java)
+        val subscribe = RetrofitHelper.createApi(ApiService::class.java)
                 .getHitKeyBean()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
