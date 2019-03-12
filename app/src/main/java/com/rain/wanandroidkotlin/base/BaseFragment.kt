@@ -1,13 +1,11 @@
 package com.rain.wanandroidkotlin.base
 
 import android.app.Activity
+import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.hankkin.pagelayout.PageLayout
-import com.rain.wanandroidkotlin.R
 
 /**
  * Author:rain

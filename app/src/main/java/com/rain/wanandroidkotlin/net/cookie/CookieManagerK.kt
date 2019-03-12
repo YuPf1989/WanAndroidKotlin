@@ -14,15 +14,13 @@ import com.rain.wanandroidkotlin.MyApp
  */
 @SuppressLint("StaticFieldLeak")
 object CookieManagerK {
-    val context:Context = MyApp.getApplication()
-    private lateinit var cookieJar: PersistentCookieJar
+    val context:Context = MyApp.instance
+    private val cookieJar: PersistentCookieJar by lazy {
+        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
+    }
 
     fun clearCookies(){
         cookieJar.clear()
     }
 
-    fun getCookieJar():PersistentCookieJar{
-        cookieJar =  PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
-        return cookieJar
-    }
 }

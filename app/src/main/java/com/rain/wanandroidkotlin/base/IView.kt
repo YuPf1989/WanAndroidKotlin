@@ -6,5 +6,4 @@ package com.rain.wanandroidkotlin.base
  * Description:
  * 最顶级的view接口
  */
-interface IView {
-}
+interface IView

@@ -5,12 +5,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
+
 /**
  * Author:rain
  * Date:2018/11/16 9:58
  * Description:
  */
 abstract class BaseActivity :AppCompatActivity() {
+    protected val TAG = this.javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

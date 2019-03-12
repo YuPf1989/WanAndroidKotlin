@@ -15,7 +15,7 @@ class ToastUtil {
 
         fun showToast(charSequence: CharSequence) {
             val duration = Toast.LENGTH_SHORT
-            val application = MyApp.getApplication()
+            val application = MyApp.instance
             if (mToast == null) {
                 mToast = Toast.makeText(application, charSequence, duration)
             } else {

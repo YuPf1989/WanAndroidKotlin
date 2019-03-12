@@ -11,16 +11,22 @@ import com.rain.wanandroidkotlin.util.Constant
  * Date:2019/1/8 14:51
  * Description:
  */
+
+/**
+ * Log.e在kotlin语法上的扩展,[tag]tag,[content]输出内容
+ */
 fun loge(tag: String, content: String?) {
     Log.e(tag, content ?: tag)
 }
 
-fun getCookieJar():PersistentCookieJar{
-    return Constant.cookiejar?: PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApp.getApplication())).apply {
-        Constant.cookiejar = this
-    }
+
+fun getCookieJar(): PersistentCookieJar {
+    return Constant.cookiejar
+            ?: PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApp.instance)).apply {
+                Constant.cookiejar = this
+            }
 }
 
-fun clearCookies(){
+fun clearCookies() {
     Constant.cookiejar?.clear()
 }

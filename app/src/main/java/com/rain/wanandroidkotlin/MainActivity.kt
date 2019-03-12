@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.json.JSONObject
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     var fragmentList: ArrayList<Fragment>? = null
@@ -49,7 +50,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return@OnNavigationItemSelectedListener true
             }
             else -> return@OnNavigationItemSelectedListener false
-
         }
     }
 

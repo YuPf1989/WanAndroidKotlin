@@ -1,6 +1,7 @@
 package com.rain.wanandroidkotlin.mvp.presenter
 
 import android.util.Log
+import com.rain.wanandroidkotlin.base.IView
 import com.rain.wanandroidkotlin.base.PresenterImpl
 import com.rain.wanandroidkotlin.mvp.contract.WxContract
 import com.rain.wanandroidkotlin.mvp.model.api.ApiService
@@ -15,8 +16,7 @@ import io.reactivex.schedulers.Schedulers
  * Description:
  */
 class WxPresenter:WxContract.Presenter,PresenterImpl<WxContract.View>() {
-    var view:WxContract.View? = null
-
+    var view:WxContract.View?  = null
 
     override fun attachView(view: WxContract.View) {
         super.attachView(view)
@@ -33,7 +33,6 @@ class WxPresenter:WxContract.Presenter,PresenterImpl<WxContract.View>() {
                     Log.e("eee",it.toString())
                     view!!.getWxResultErr(ExceptionHandle.handleException(it))
                 })
-
         addSubscription(subscribe)
     }
 

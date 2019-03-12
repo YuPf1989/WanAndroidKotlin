@@ -90,4 +90,5 @@ class SplashActivity:BaseActivity() {
         set.interpolator = OvershootInterpolator()
         androidTv.postDelayed({ set.start() }, 500)
     }
+
 }

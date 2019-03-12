@@ -68,4 +68,11 @@ dependencies {
     // cookie持久化
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
+    // leakcanary
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.0.5'
+    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:1.0.5'
+
 }
